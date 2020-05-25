@@ -1,27 +1,17 @@
 import axios from '../utility/axios';
-import { AUTH_SUCC, AUTH_FAIL, LOGIN_FAIL, AUTH_ERR } from './types';
-import setAuthToken from '../utility/setAuthtoken';
+import { AUTH_SUCC, AUTH_FAIL, AUTH_ERR } from './types';
 
-export const authUser = () => async (dispatch) => {
+const authUser = () => async (dispatch) => {
     try {
         const res = await axios({
             type: 'GET',
-            url: '/auth/checks',
+            url: '/auth/check',
         });
-        const { success, data } = res.data;
+        const { success } = res.data;
         if (success) {
-            const { token } = data;
-            if (typeof token !== 'undefined' && token) {
-                setAuthToken(token);
-                dispatch({
-                    type: AUTH_SUCC,
-                    payload: token,
-                });
-            } else {
-                dispatch({
-                    type: AUTH_FAIL,
-                });
-            }
+            dispatch({
+                type: AUTH_SUCC,
+            });
         } else {
             dispatch({
                 type: AUTH_FAIL,
@@ -40,10 +30,4 @@ export const authUser = () => async (dispatch) => {
     }
 };
 
-export const logout = () => (dispatch) => {
-    // eslint-disable-next-line no-alert
-    alert('You clicked on the logout button');
-    dispatch({
-        type: LOGIN_FAIL,
-    });
-};
+export default authUser;
