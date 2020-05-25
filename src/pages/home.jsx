@@ -1,16 +1,24 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getUserProfile } from '../actions/profile';
+import { getUserProfile, logoutUser } from '../actions/profile';
 
 import Loading from '../components/loading';
 
 import classes from '../styles/home.module.css';
 
 const Home = (props) => {
-    const { getUserProfileAction, loading, redirect, user } = props;
+    const {
+        getUserProfileAction,
+        loading,
+        redirect,
+        user,
+        logoutUserAction,
+    } = props;
 
     useEffect(() => {
         getUserProfileAction();
@@ -39,7 +47,10 @@ const Home = (props) => {
                         <a href="/notes">Click here</a> to manage and view your
                         notes
                     </p>
-                    <div className={classes.logoutBtn}>
+                    <div
+                        className={classes.logoutBtn}
+                        onClick={logoutUserAction}
+                    >
                         <a href="/logout">Log Out</a>
                     </div>
                 </div>
@@ -55,6 +66,7 @@ const Home = (props) => {
 
 Home.propTypes = {
     getUserProfileAction: PropTypes.func.isRequired,
+    logoutUserAction: PropTypes.func.isRequired,
     redirect: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
     user: PropTypes.oneOfType([PropTypes.object]).isRequired,
@@ -77,4 +89,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getUserProfileAction: getUserProfile,
+    logoutUserAction: logoutUser,
 })(Home);

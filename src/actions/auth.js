@@ -6,6 +6,7 @@ const authUser = () => async (dispatch) => {
         const res = await axios({
             type: 'GET',
             url: '/auth/check',
+            withCredentials: true,
         });
         const { success } = res.data;
         if (success) {
@@ -21,12 +22,12 @@ const authUser = () => async (dispatch) => {
         dispatch({
             type: AUTH_ERR,
         });
-        if (typeof err.response !== 'undefined' && err.response) {
-            const error = err.response.data;
-            const { message } = error;
-            // eslint-disable-next-line no-alert
-            alert(message);
-        }
+        // if (typeof err.response !== 'undefined' && err.response) {
+        //     const error = err.response.data;
+        //     const { message } = error;
+        //     // eslint-disable-next-line no-alert
+        //     alert(message);
+        // }
     }
 };
 

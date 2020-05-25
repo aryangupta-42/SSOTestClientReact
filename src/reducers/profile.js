@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
         case PROFILE_SUCC: {
             return {
                 loading: false,
-                user: payload,
+                user: payload.user,
             };
         }
         default:
