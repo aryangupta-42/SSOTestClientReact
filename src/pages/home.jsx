@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import getUserProfile from '../actions/profile';
+import { getUserProfile } from '../actions/profile';
 
 import Loading from '../components/loading';
 
